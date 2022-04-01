@@ -12,7 +12,7 @@ class BottomNavigation_dash extends GetView<DashboardController> {
     return SafeArea(
       child: Container(
         height: 60,
-        margin: EdgeInsets.only(bottom: 0, left: 2, right: 2),
+        margin: EdgeInsets.only(top: 5, left: 2, right: 2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),

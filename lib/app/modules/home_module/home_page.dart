@@ -184,6 +184,7 @@ class HomePage extends GetView<HomeController> {
             controller: controller.scrollController,
             itemBuilder: (context, int index) {
               return Container(
+                padding: EdgeInsets.only(top: 8,bottom: 8),
                   child: Image.asset("assets/images/cards.jpeg"));
             }),
       ),

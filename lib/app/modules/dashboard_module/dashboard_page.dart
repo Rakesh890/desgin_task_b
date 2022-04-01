@@ -28,7 +28,7 @@ class DashboardPage extends GetView<DashboardController> {
                   child: Column(
                     children: [
                       CustomAppBar(),
-                      _buildInfo(context),
+                      _buildDashboardWithGrph(context),
                     ],
                   ),
                 ),
@@ -106,7 +106,7 @@ class DashboardPage extends GetView<DashboardController> {
             : BottomNavigation_dash()));
   }
 
-  _buildInfo(BuildContext context) {
+  _buildDashboardWithGrph(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
