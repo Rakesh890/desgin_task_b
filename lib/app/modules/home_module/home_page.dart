@@ -280,10 +280,7 @@ class HomePage extends GetView<HomeController> {
             controller: controller.scrollController,
             itemBuilder: (context, int index) {
               return Container(
-                  child: Image.network(
-                "https://i.pinimg.com/736x/7d/b3/86/7db386503d3b87cd877264c4c521ea6a.jpg",
-                fit: BoxFit.cover,
-              ));
+                  child: Image.asset("assets/images/cards.jpeg"));
             }),
       ),
     );

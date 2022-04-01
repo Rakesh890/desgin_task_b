@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.design_task_b.desgin_task_b">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="desgin_task_b"
         android:name="${applicationName}"
