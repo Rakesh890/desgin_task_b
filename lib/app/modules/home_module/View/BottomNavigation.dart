@@ -1,11 +1,12 @@
-import 'package:desgin_task_b/app/modules/dashboard_module/dashboard_controller.dart';
-import 'package:get/get.dart';
+import 'package:desgin_task_b/app/modules/home_module/home_controller.dart';
+//import 'package:desgin_task_b/app/modules/landing_module/landing_controller.dart';
+import 'package:desgin_task_b/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-import '../../../theme/app_colors.dart';
-
-class BottomNavigation_dash extends GetView<DashboardController> {
-  BottomNavigation_dash({Key? key}) : super(key: key);
+class BottomNavigation extends GetView<HomeController> {
+  BottomNavigation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class BottomNavigation_dash extends GetView<DashboardController> {
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),
               topLeft: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)),
+              bottomRight: Radius.circular(30),
+              bottomLeft: Radius.circular(30)),
           color: appPrimaryColor,
         ),
         child: Obx(

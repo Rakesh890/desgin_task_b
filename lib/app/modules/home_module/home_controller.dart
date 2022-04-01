@@ -6,33 +6,21 @@ import 'package:get/get.dart';
 class HomeController extends GetxController with SingleGetTickerProviderMixin {
   
   ScrollController scrollController = ScrollController();
-  var isVisible= false.obs;
+  RxBool isVisible= false.obs;
   var selectedTabIndex=0.obs;
   late TabController tabController;
+  RxList userCardsList = [].obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    //init tabbar for bottom footer
     tabController = TabController(vsync: this, length:2);
-    scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-          isVisible.value = true;
-        print("**** ${isVisible.value} Down");
-      }
-
-      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
-          isVisible.value = true;
-        print("**** ${isVisible.value} UP");
-      }
-
-      if(scrollController.position.pixels == scrollController.position.minScrollExtent){
-        isVisible.value = false;
-      }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        isVisible.value = false;
-      }
-    });
+    //init scroll event function when we scroll card list
+    _initUserCardScrolleEvent();
+    //init user card list
+    initCardList();
   }
 
 
@@ -57,5 +45,40 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
       Get.offNamed(Routes.DASHBOARD);
       selectedTabIndex.value=1;
     }
+  }
+
+  void initCardList()
+  {
+    userCardsList.value..add({
+      "image":"assets/images/cards.jpeg",
+    })..add({
+      "image":"assets/images/cards.jpeg",
+    })..add({
+      "image":"assets/images/cards.jpeg",
+    })..add({
+      "image":"assets/images/cards.jpeg",
+    });
+  }
+
+  void _initUserCardScrolleEvent()
+  {
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        isVisible.value = true;
+        print("**** ${isVisible.value} Down");
+      }
+
+      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+        isVisible.value = true;
+        print("**** ${isVisible.value} UP");
+      }
+
+      if(scrollController.position.pixels == scrollController.position.minScrollExtent){
+        isVisible.value = false;
+      }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+        isVisible.value = false;
+      }
+    });
   }
 }

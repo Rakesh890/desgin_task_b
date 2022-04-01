@@ -12,7 +12,7 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
 
 
   ScrollController scrollController = ScrollController();
-  var isVisible= false.obs;
+  RxBool isVisible= false.obs;
   late TabController tabController;
   var selectedTabIndex=1.obs;
   Map<String, double> dataMap = {
@@ -27,31 +27,21 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
     Colors.pinkAccent,
     Colors.blue
   ];
+  RxList userTransactionList = [].obs;
+
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    //init Tab
     tabController = TabController(vsync: this, length:2);
+    //Init set tab index value when come in dashboard section
     selectedTabIndex.value=1;
-    scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        isVisible.value = true;
-        print("**** ${isVisible.value} Down");
-      }
-
-      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
-        isVisible.value = true;
-        print("**** ${isVisible.value} UP");
-      }
-
-      if(scrollController.position.pixels == scrollController.position.minScrollExtent){
-        isVisible.value = false;
-      }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        isVisible.value = false;
-      }
-    });
+    //Transaction Scroll Function
+    _transactionScrollerEvent();
+    //init transaction list
+    initTransactionList();
   }
 
 
@@ -65,6 +55,8 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
   void onClose() {
     // TODO: implement onClose
     super.onClose();
+    //Remove scroller controller from memory
+    scrollController.dispose();
   }
 
   selectBottomTab(int val)
@@ -75,6 +67,56 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
     }else{
       selectedTabIndex.value=1;
     }
+  }
+
+  void _transactionScrollerEvent()
+  {
+    scrollController.addListener(() {
+      //When we start scrolling down
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        isVisible.value = true;
+      }
+
+      //When start scrolling up side
+      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+        isVisible.value = true;
+        print("**** ${isVisible.value} UP");
+      }
+
+      //Check that min and max value when we reach on bottom and top
+      if(scrollController.position.pixels == scrollController.position.minScrollExtent){
+        isVisible.value = false;
+      }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+        isVisible.value = false;
+      }
+    });
+  }
+
+  void initTransactionList()
+  {
+    //Using cascading to execute same operation on same object.
+    userTransactionList.value..add({
+      "name":"Bitcoin",
+      "bitcoinValue":"-0.305338TC",
+      "date":"1 April 2022",
+      "status":"Sent"
+    })..add({
+      "name":"Ruble",
+      "bitcoinValue":"+4.305338TC",
+      "date":"31 March 2022",
+      "status":"Received"
+    })..add({
+      "name":"Ethereum",
+      "bitcoinValue":"-0.305338TC",
+      "date":"2 April 2022",
+      "status":"Received"
+    })..add({
+      "name":"Ripley",
+      "bitcoinValue":"+0.305338TC",
+      "date":"1 April 2022",
+      "status":"sent"
+    });
   }
 
 }

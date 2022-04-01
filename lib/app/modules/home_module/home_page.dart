@@ -3,13 +3,10 @@ import 'package:desgin_task_b/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desgin_task_b/app/modules/home_module/home_controller.dart';
+import '../../layout/customappbar.dart';
 import '../../utils/strings.dart';
-import '../CommonModule/BottomNavigation.dart';
-import '../CommonModule/customAppBar.dart';
+import 'View/BottomNavigation.dart';
 
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
 
 class HomePage extends GetView<HomeController> {
   @override
@@ -31,7 +28,7 @@ class HomePage extends GetView<HomeController> {
                   child: Column(
                     children: [
                       CustomAppBar(),
-                      _buildInfo(context),
+                      _buildUserDashboard(context),
                     ],
                   ),
                 ),
@@ -87,7 +84,7 @@ class HomePage extends GetView<HomeController> {
                               ],
                             ),
                             SizedBox(height: 10),
-                            _buildCardList(context),
+                            _buildUserCardView(context),
                           ],
                         ),
                       ),
@@ -97,106 +94,12 @@ class HomePage extends GetView<HomeController> {
           ),
         ),
 
-
-        // Obx(
-        //   () => IndexedStack(
-        //     index: controller.selectedTabIndex.value,
-        //     children: [
-        //       SingleChildScrollView(
-        //         child: Container(
-        //           height: MediaQuery.of(context).size.height,
-        //           child: Stack(
-        //             children: [
-        //               Container(
-        //                 padding:
-        //                     EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        //                 height: MediaQuery.of(context).size.height,
-        //                 decoration: BoxDecoration(
-        //                   color: appPrimaryColor,
-        //                 ),
-        //                 child: Column(
-        //                   children: [
-        //                     CustomAppBar(),
-        //                     _buildInfo(context),
-        //                   ],
-        //                 ),
-        //               ),
-        //               Positioned(
-        //                   top: 270,
-        //                   bottom: -10,
-        //                   width: MediaQuery.of(context).size.width,
-        //                   child: Card(
-        //                     shape: RoundedRectangleBorder(
-        //                         borderRadius: BorderRadius.only(
-        //                             topLeft: Radius.circular(40),
-        //                             topRight: Radius.circular(40))),
-        //                     margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        //                     color: Colors.white,
-        //                     child: Padding(
-        //                       padding: const EdgeInsets.symmetric(
-        //                           vertical: 12, horizontal: 14),
-        //                       child: Column(
-        //                         children: [
-        //                           SizedBox(height: 10),
-        //                           Row(
-        //                             children: [
-        //                               SizedBox(
-        //                                 width: 5,
-        //                               ),
-        //                               Text(
-        //                                 "My Cards",
-        //                                 style: TextStyle(
-        //                                     color: Colors.black,
-        //                                     fontSize: 22,
-        //                                     fontWeight: FontWeight.bold),
-        //                               ),
-        //                               Spacer(),
-        //                               //Add Card Button
-        //                               SizedBox(
-        //                                 height: 25,
-        //                                 child: FloatingActionButton.small(
-        //                                   onPressed: () {},
-        //                                   shape: RoundedRectangleBorder(
-        //                                       borderRadius:
-        //                                           BorderRadius.circular(10)),
-        //                                   elevation: 0,
-        //                                   child: Icon(
-        //                                     Icons.add,
-        //                                     size: 20,
-        //                                   ),
-        //                                 ),
-        //                               ),
-        //                               //Add Some Space From Right Side
-        //                               SizedBox(
-        //                                 width: 5,
-        //                               )
-        //                             ],
-        //                           ),
-        //                           SizedBox(height: 10),
-        //                           _buildCardList(context),
-        //                         ],
-        //                       ),
-        //                     ),
-        //                   )),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //       DashboardPage(),
-        //     ],
-        //   ),
-        // ),
       ),
-      bottomNavigationBar: SafeArea(
-          child: Obx(() => (controller.isVisible == true)
-              ? Container(
-                  height: 0,
-                )
-              : BottomNavigation())),
+      bottomNavigationBar: _buildAppFooter(),
     );
   }
 
-  _buildInfo(BuildContext context) {
+  _buildUserDashboard(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +172,8 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  _buildCardList(BuildContext context) {
+  //show user cards sections
+  _buildUserCardView(BuildContext context) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
@@ -284,5 +188,14 @@ class HomePage extends GetView<HomeController> {
             }),
       ),
     );
+  }
+
+  //App Footer for bottom tabs
+  _buildAppFooter()
+  {
+   return SafeArea(
+        child: Obx(() => (controller.isVisible == true)
+            ? Container(height: 0,)
+            : BottomNavigation()));
   }
 }

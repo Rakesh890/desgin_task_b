@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desgin_task_b/app/modules/dashboard_module/dashboard_controller.dart';
 import 'package:pie_chart/pie_chart.dart';
+import '../../layout/customappbar.dart';
 import '../../theme/app_colors.dart';
-import '../../utils/strings.dart';
-import '../CommonModule/BottomNavigation.dart';
-import '../CommonModule/customAppBar.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
+
 
 class DashboardPage extends GetView<DashboardController> {
   @override
@@ -96,13 +93,17 @@ class DashboardPage extends GetView<DashboardController> {
             )),
           ),
         ),
-      bottomNavigationBar: SafeArea(
-          child: Obx(() => (controller.isVisible == true)
-              ? Container(
-            height: 0,
-          )
-              : BottomNavigation_dash())),
+      bottomNavigationBar: _buildAppFooter()
     );
+  }
+
+  _buildAppFooter(){
+    return SafeArea(
+        child: Obx(() => (controller.isVisible == true)
+            ? Container(
+          height: 0,
+        )
+            : BottomNavigation_dash()));
   }
 
   _buildInfo(BuildContext context) {
@@ -155,41 +156,49 @@ class DashboardPage extends GetView<DashboardController> {
         child: ListView.builder(
             shrinkWrap: true,
             addAutomaticKeepAlives: true,
-            itemCount: 10,
+            itemCount: controller.userTransactionList.length,
             controller: controller.scrollController,
             itemBuilder: (context, int index) {
-              return Container(
-                  child: ListTile(
-                    leading: ClipRect(
-                      child: CircleAvatar(
-                        child: Text("AB"),
-                      ),
-                    ),
-                    title: Text("Bitcoin",style: TextStyle(
+              return ListTile(
+                contentPadding:EdgeInsets.zero,
+                leading: ClipRect(
+                  child: CircleAvatar(
+                    child: Text("${controller.userTransactionList[index]["name"].toString().substring(0, 1).toUpperCase()}"),
+                  ),
+                ),
+                title: Row(
+                  children: [
+                    Text("${controller.userTransactionList[index]["name"]}",style: TextStyle(
                       color: appPrimaryTextColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w500
                     ),),
-                    subtitle: Text("-3.0987 BTC",style: TextStyle(
-                      fontSize: 14,color: appSecondaryTextColor,fontWeight: FontWeight.w400
-                    ),),
-                    trailing: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("01 Apirl 2022",style: TextStyle(
-                            color: appPrimaryTextColor,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500
-                        )),
-                        SizedBox(height: 5,),
-                        Text("Sent",style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400
-                        )),
-                      ],
-                    ),
-                  ));
+                    Spacer(),
+                    Text("${controller.userTransactionList[index]["date"]}",style: TextStyle(
+                        color: appPrimaryTextColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500
+                    )),
+                  ],
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top:4.0),
+                  child: Row(
+                    children: [
+                      Text("${controller.userTransactionList[index]["bitcoinValue"]}",style: TextStyle(
+                        fontSize: 14,color: appSecondaryTextColor,fontWeight: FontWeight.w400
+                      ),),
+                      Spacer(),
+                      Text("${controller.userTransactionList[index]["status"].toString().capitalizeFirst}",style: TextStyle(
+                          color:(controller.userTransactionList[index]["status"].toString().toLowerCase() == "sent") ?
+                          Colors.red : Colors.green,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400
+                      )),
+                    ],
+                  ),
+                ),
+              );
             }),
       ),
     );
