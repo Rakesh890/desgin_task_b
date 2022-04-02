@@ -1,4 +1,5 @@
 //import 'package:desgin_task_b/app/modules/landing_module/landing_bindings.dart';
+import 'package:desgin_task_b/app/modules/landing_module/landing_bindings.dart';
 import 'package:desgin_task_b/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialBinding: HomeBinding(),
-      initialRoute: Routes.HOME,
+      // initialBinding: LandingBinding(),
+      initialRoute: Routes.LANDING,
       getPages: AppPages.pages,
     );
   }

@@ -1,19 +1,20 @@
 import 'package:desgin_task_b/app/modules/home_module/home_controller.dart';
+import 'package:desgin_task_b/app/modules/landing_module/landing_controller.dart';
 //import 'package:desgin_task_b/app/modules/landing_module/landing_controller.dart';
 import 'package:desgin_task_b/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class BottomNavigation extends GetView<HomeController> {
-  BottomNavigation({Key? key}) : super(key: key);
+class AppFooter extends GetView<LandingController> {
+  AppFooter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        height: 60,
-        margin: EdgeInsets.only(top: 5, left: 2, right: 2),
+    return Container(
+      height: 80,
+        padding: EdgeInsets.only(top: 5, left: 0, right: 0,bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(30),
@@ -39,8 +40,8 @@ class BottomNavigation extends GetView<HomeController> {
               Tab(
                 iconMargin: EdgeInsets.only(top: 3, bottom: 3),
                 icon: Icon(
-                  Icons.house_outlined,
-                  size: 28,
+                  Icons.dashboard_outlined,
+                  size: 26,
                   color: (controller.selectedTabIndex == 0)
                       ? buttonColor
                       : appSecondaryTextColor,
@@ -49,9 +50,28 @@ class BottomNavigation extends GetView<HomeController> {
               Tab(
                 iconMargin: EdgeInsets.only(top: 3, bottom: 3),
                 icon: Icon(
-                  Icons.swap_vertical_circle_outlined,
-                  size: 28,
+                  Icons.account_balance_wallet_outlined,
+                  size: 26,
                   color: (controller.selectedTabIndex == 1)
+                      ? buttonColor
+                      : appSecondaryTextColor,
+                ),
+              ),
+              Tab(
+                iconMargin: EdgeInsets.only(top: 3, bottom: 3),
+                icon: Icon(Icons.settings_backup_restore_outlined,
+                  size: 26,
+                  color: (controller.selectedTabIndex == 2)
+                      ? buttonColor
+                      : appSecondaryTextColor,
+                ),
+              ),
+              Tab(
+                iconMargin: EdgeInsets.only(top: 3, bottom: 3),
+                icon: Icon(
+                  Icons.person_outline,
+                  size: 29,
+                  color: (controller.selectedTabIndex == 3)
                       ? buttonColor
                       : appSecondaryTextColor,
                 ),
@@ -59,7 +79,6 @@ class BottomNavigation extends GetView<HomeController> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

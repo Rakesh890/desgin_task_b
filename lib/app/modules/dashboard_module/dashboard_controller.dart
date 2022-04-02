@@ -1,4 +1,5 @@
 import 'package:desgin_task_b/app/modules/home_module/home_controller.dart';
+import 'package:desgin_task_b/app/modules/landing_module/landing_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,9 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
   ScrollController scrollController = ScrollController();
   RxBool isVisible= false.obs;
   late TabController tabController;
-  var selectedTabIndex=1.obs;
+  final LandingController landingController = Get.find();
+
+
   Map<String, double> dataMap = {
     "Bitcoin": 5,
     "Ethereum": 3,
@@ -36,8 +39,6 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
     super.onInit();
     //init Tab
     tabController = TabController(vsync: this, length:2);
-    //Init set tab index value when come in dashboard section
-    selectedTabIndex.value=1;
     //Transaction Scroll Function
     _transactionScrollerEvent();
     //init transaction list
@@ -59,15 +60,6 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
     scrollController.dispose();
   }
 
-  selectBottomTab(int val)
-  {
-    selectedTabIndex.value = val;
-    if(selectedTabIndex.value == 0){
-      Get.offNamed(Routes.HOME);
-    }else{
-      selectedTabIndex.value=1;
-    }
-  }
 
   void _transactionScrollerEvent()
   {
@@ -75,20 +67,19 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
       //When we start scrolling down
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
-        isVisible.value = true;
+        landingController.isVisibleFooter.value=true;
       }
 
       //When start scrolling up side
       if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
-        isVisible.value = true;
-        print("**** ${isVisible.value} UP");
+        landingController.isVisibleFooter.value=true;
       }
 
       //Check that min and max value when we reach on bottom and top
       if(scrollController.position.pixels == scrollController.position.minScrollExtent){
-        isVisible.value = false;
+        landingController.isVisibleFooter.value=false;
       }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        isVisible.value = false;
+        landingController.isVisibleFooter.value=false;
       }
     });
   }
@@ -111,6 +102,21 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
       "bitcoinValue":"-0.305338TC",
       "date":"2 April 2022",
       "status":"Received"
+    })..add({
+      "name":"Ripley",
+      "bitcoinValue":"+0.305338TC",
+      "date":"1 April 2022",
+      "status":"sent"
+    })..add({
+      "name":"Ripley",
+      "bitcoinValue":"+0.305338TC",
+      "date":"1 April 2022",
+      "status":"sent"
+    })..add({
+      "name":"Ripley",
+      "bitcoinValue":"+0.305338TC",
+      "date":"1 April 2022",
+      "status":"sent"
     })..add({
       "name":"Ripley",
       "bitcoinValue":"+0.305338TC",

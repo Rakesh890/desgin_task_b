@@ -1,11 +1,10 @@
-import 'package:desgin_task_b/app/modules/dashboard_module/dashboard_page.dart';
 import 'package:desgin_task_b/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desgin_task_b/app/modules/home_module/home_controller.dart';
 import '../../layout/customappbar.dart';
 import '../../utils/strings.dart';
-import 'View/BottomNavigation.dart';
+
 
 
 class HomePage extends GetView<HomeController> {
@@ -95,7 +94,6 @@ class HomePage extends GetView<HomeController> {
         ),
 
       ),
-      bottomNavigationBar: _buildAppFooter(),
     );
   }
 
@@ -158,7 +156,7 @@ class HomePage extends GetView<HomeController> {
                     width: MediaQuery.of(context).size.width / 2,
                     child: RaisedButton.icon(
                       onPressed: () {},
-                      icon: Icon(Icons.arrow_downward),
+                      icon: Icon(Icons.transit_enterexit_sharp,color: Colors.grey.shade700,),
                       label: Text("$request"),
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -191,12 +189,4 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  //App Footer for bottom tabs
-  _buildAppFooter()
-  {
-   return SafeArea(
-        child: Obx(() => (controller.isVisible == true)
-            ? Container(height: 0,)
-            : BottomNavigation()));
-  }
 }

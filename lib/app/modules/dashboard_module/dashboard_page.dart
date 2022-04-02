@@ -1,4 +1,3 @@
-import 'package:desgin_task_b/app/modules/dashboard_module/View/BottomNavigation_dash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:desgin_task_b/app/modules/dashboard_module/dashboard_controller.dart';
@@ -93,18 +92,10 @@ class DashboardPage extends GetView<DashboardController> {
             )),
           ),
         ),
-      bottomNavigationBar: _buildAppFooter()
+      // bottomNavigationBar: _buildAppFooter()
     );
   }
 
-  _buildAppFooter(){
-    return SafeArea(
-        child: Obx(() => (controller.isVisible == true)
-            ? Container(
-          height: 0,
-        )
-            : BottomNavigation_dash()));
-  }
 
   _buildDashboardWithGrph(BuildContext context) {
     return Column(

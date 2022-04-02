@@ -1,3 +1,4 @@
+import 'package:desgin_task_b/app/modules/landing_module/landing_controller.dart';
 import 'package:desgin_task_b/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,6 +11,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   var selectedTabIndex=0.obs;
   late TabController tabController;
   RxList userCardsList = [].obs;
+  final LandingController landingController = Get.find();
 
   @override
   void onInit() {
@@ -38,13 +40,14 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
 
   selectBottomTab(int val)
   {
-    selectedTabIndex.value = val;
-    if(selectedTabIndex.value == 0){
-      // Get.toName(Routes.Home);
-    }else{
-      Get.offNamed(Routes.DASHBOARD);
-      selectedTabIndex.value=1;
-    }
+    // selectedTabIndex.value = val;
+    // if(selectedTabIndex.value == 0){
+    //   // Get.toName(Routes.Home);
+    // }else{
+    //   Get.offNamed(Routes.DASHBOARD);
+    //   selectedTabIndex.value=1;
+    // }
+    landingController.isVisibleFooter.value=true;
   }
 
   void initCardList()
@@ -65,19 +68,23 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
-        isVisible.value = true;
+        //isVisible.value = true;
+        landingController.isVisibleFooter.value=true;
         print("**** ${isVisible.value} Down");
       }
 
       if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
-        isVisible.value = true;
+        //isVisible.value = true;
+        landingController.isVisibleFooter.value=true;
         print("**** ${isVisible.value} UP");
       }
 
       if(scrollController.position.pixels == scrollController.position.minScrollExtent){
-        isVisible.value = false;
+        //isVisible.value = false;
+        landingController.isVisibleFooter.value=false;
       }else if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        isVisible.value = false;
+       // isVisible.value = false;
+        landingController.isVisibleFooter.value=false;
       }
     });
   }
