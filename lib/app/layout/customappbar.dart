@@ -1,10 +1,13 @@
 
+import 'package:badges/badges.dart';
 import 'package:desgin_task_b/app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+class CustomAppBar extends StatelessWidget
+{
+  String screenName;
+  CustomAppBar(this.screenName, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +24,20 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
       ),
-      title: Text("John Deo",style: TextStyle(
+      title: Text("${screenName}",style: TextStyle(
           color: Colors.white,
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: FontWeight.w500
       ),),
       actions: [
-        IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.bell))
+
+        Badge(
+            position: BadgePosition.topStart(top: 15,start: 26),
+            alignment: Alignment.centerRight,
+            stackFit: StackFit.loose,
+            elevation: 0,
+            toAnimate: false,
+            child: IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.bell,size: 24,)))
       ],
     );
   }

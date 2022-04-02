@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:desgin_task_b/app/modules/dashboard_module/dashboard_controller.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -11,6 +13,7 @@ class DashboardPage extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appPrimaryColor,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -24,15 +27,10 @@ class DashboardPage extends GetView<DashboardController> {
                   decoration: BoxDecoration(
                     color: appPrimaryColor,
                   ),
-                  child: Column(
-                    children: [
-                      CustomAppBar(),
-                      _buildDashboardWithGrph(context),
-                    ],
-                  ),
+                  child: _buildDashboardWithGrph(context),
                 ),
                 Positioned(
-                    top: 280,
+                    top: 240,
                     bottom: -10,
                     width: MediaQuery.of(context).size.width,
                     child: Card(
@@ -52,6 +50,7 @@ class DashboardPage extends GetView<DashboardController> {
                               children: [
                                 SizedBox(
                                   width: 5,
+                                  height: 10,
                                 ),
                                 Text(
                                   "My Transaction",
@@ -63,19 +62,25 @@ class DashboardPage extends GetView<DashboardController> {
                                 Spacer(),
                                 //Add Card Button
                                 SizedBox(
-                                  height: 25,
+                                  height: 30,
                                   child: FloatingActionButton.small(
                                     onPressed: () {},
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                         BorderRadius.circular(10)),
                                     elevation: 0,
-                                    child: Icon(
-                                      Icons.filter_frames_outlined,
-                                      size: 20,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Transform.rotate(
+                                          angle: 190,
+                                          child: FaIcon(
+                                            FontAwesomeIcons.slidersH,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
                                 //Add Some Space From Right Side
                                 SizedBox(
                                   width: 5,
@@ -83,6 +88,7 @@ class DashboardPage extends GetView<DashboardController> {
                               ],
                             ),
                             SizedBox(height: 10),
+                            //Transaction List View
                             _buildCardList(context),
                           ],
                         ),
@@ -116,6 +122,7 @@ class DashboardPage extends GetView<DashboardController> {
           ringStrokeWidth: 12,
           centerText: "Available Coins",
           legendOptions: LegendOptions(
+            legendShape: BoxShape.circle,
             showLegendsInRow: false,
             legendPosition: LegendPosition.right,
             showLegends: true,
@@ -131,6 +138,7 @@ class DashboardPage extends GetView<DashboardController> {
             showChartValuesOutside: false,
             decimalPlaces: 1,
           ),
+
           // gradientList: ---To add gradient colors---
           // emptyColorGradient: ---Empty Color gradient---
         ),
@@ -150,43 +158,48 @@ class DashboardPage extends GetView<DashboardController> {
             itemCount: controller.userTransactionList.length,
             controller: controller.scrollController,
             itemBuilder: (context, int index) {
-              return ListTile(
-                contentPadding:EdgeInsets.zero,
-                leading: ClipRect(
-                  child: CircleAvatar(
-                    child: Text("${controller.userTransactionList[index]["name"].toString().substring(0, 1).toUpperCase()}"),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: ListTile(
+                  contentPadding:EdgeInsets.zero,
+                  leading: ClipRect(
+                    child: CircleAvatar(
+                      backgroundColor: controller.userTransactionList[index]["color"],
+                      child: Text("${controller.userTransactionList[index]["name"].toString().substring(0, 1).toUpperCase()}",
+                      style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white),),
+                    ),
                   ),
-                ),
-                title: Row(
-                  children: [
-                    Text("${controller.userTransactionList[index]["name"]}",style: TextStyle(
-                      color: appPrimaryTextColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
-                    ),),
-                    Spacer(),
-                    Text("${controller.userTransactionList[index]["date"]}",style: TextStyle(
-                        color: appPrimaryTextColor,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500
-                    )),
-                  ],
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top:4.0),
-                  child: Row(
+                  title: Row(
                     children: [
-                      Text("${controller.userTransactionList[index]["bitcoinValue"]}",style: TextStyle(
-                        fontSize: 14,color: appSecondaryTextColor,fontWeight: FontWeight.w400
+                      Text("${controller.userTransactionList[index]["name"]}",style: TextStyle(
+                        color: appPrimaryTextColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
                       ),),
                       Spacer(),
-                      Text("${controller.userTransactionList[index]["status"].toString().capitalizeFirst}",style: TextStyle(
-                          color:(controller.userTransactionList[index]["status"].toString().toLowerCase() == "sent") ?
-                          Colors.red : Colors.green,
+                      Text("${controller.userTransactionList[index]["date"]}",style: TextStyle(
+                          color: appPrimaryTextColor,
                           fontSize: 13,
-                          fontWeight: FontWeight.w400
+                          fontWeight: FontWeight.w500
                       )),
                     ],
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top:4.0),
+                    child: Row(
+                      children: [
+                        Text("${controller.userTransactionList[index]["bitcoinValue"]}",style: TextStyle(
+                          fontSize: 14,color: appSecondaryTextColor,fontWeight: FontWeight.w400
+                        ),),
+                        Spacer(),
+                        Text("${controller.userTransactionList[index]["status"].toString().capitalizeFirst}",style: TextStyle(
+                            color:(controller.userTransactionList[index]["status"].toString().toLowerCase() == "sent") ?
+                            Colors.red : Colors.green,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               );

@@ -91,37 +91,44 @@ class DashboardController extends GetxController with SingleGetTickerProviderMix
       "name":"Bitcoin",
       "bitcoinValue":"-0.305338TC",
       "date":"1 April 2022",
-      "status":"Sent"
+      "status":"Sent",
+      "color":Colors.green,
     })..add({
       "name":"Ruble",
       "bitcoinValue":"+4.305338TC",
       "date":"31 March 2022",
-      "status":"Received"
+      "status":"Received",
+      "color":Colors.blue,
     })..add({
       "name":"Ethereum",
       "bitcoinValue":"-0.305338TC",
       "date":"2 April 2022",
-      "status":"Received"
+      "status":"Received",
+      "color":Colors.purpleAccent,
     })..add({
       "name":"Ripley",
       "bitcoinValue":"+0.305338TC",
       "date":"1 April 2022",
-      "status":"sent"
+      "status":"sent",
+    "color":Colors.blue,
     })..add({
       "name":"Ripley",
       "bitcoinValue":"+0.305338TC",
       "date":"1 April 2022",
-      "status":"sent"
+      "status":"sent",
+      "color":Colors.grey,
     })..add({
       "name":"Ripley",
       "bitcoinValue":"+0.305338TC",
       "date":"1 April 2022",
-      "status":"sent"
+      "status":"sent",
+    "color":Colors.green,
     })..add({
       "name":"Ripley",
       "bitcoinValue":"+0.305338TC",
       "date":"1 April 2022",
-      "status":"sent"
+      "status":"sent",
+      "color":Colors.yellow,
     });
   }
 

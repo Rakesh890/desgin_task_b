@@ -36,6 +36,7 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
   void onClose() {
     // TODO: implement onClose
     super.onClose();
+    scrollController.dispose();
   }
 
   selectBottomTab(int val)
@@ -70,13 +71,11 @@ class HomeController extends GetxController with SingleGetTickerProviderMixin {
           ScrollDirection.reverse) {
         //isVisible.value = true;
         landingController.isVisibleFooter.value=true;
-        print("**** ${isVisible.value} Down");
       }
 
       if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
         //isVisible.value = true;
         landingController.isVisibleFooter.value=true;
-        print("**** ${isVisible.value} UP");
       }
 
       if(scrollController.position.pixels == scrollController.position.minScrollExtent){

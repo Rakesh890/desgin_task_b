@@ -11,6 +11,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appPrimaryColor,
       body: SafeArea(
         child:  SingleChildScrollView(
           child: Container(
@@ -24,15 +25,10 @@ class HomePage extends GetView<HomeController> {
                   decoration: BoxDecoration(
                     color: appPrimaryColor,
                   ),
-                  child: Column(
-                    children: [
-                      CustomAppBar(),
-                      _buildUserDashboard(context),
-                    ],
-                  ),
+                  child:_buildUserDashboard(context),
                 ),
                 Positioned(
-                    top: 270,
+                    top: 230,
                     bottom: -10,
                     width: MediaQuery.of(context).size.width,
                     child: Card(
@@ -52,6 +48,7 @@ class HomePage extends GetView<HomeController> {
                               children: [
                                 SizedBox(
                                   width: 5,
+                                  height: 10,
                                 ),
                                 Text(
                                   "My Cards",
@@ -65,6 +62,7 @@ class HomePage extends GetView<HomeController> {
                                 SizedBox(
                                   height: 25,
                                   child: FloatingActionButton.small(
+                                    backgroundColor: buttonColor,
                                     onPressed: () {},
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
